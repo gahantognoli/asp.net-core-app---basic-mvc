@@ -1,6 +1,6 @@
 using System;
 
-namespace Gabriel.App.Models
+namespace Gabriel.App.ViewModels
 {
     public class ErrorViewModel
     {

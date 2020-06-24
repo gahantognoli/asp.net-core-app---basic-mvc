@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace Gabriel.Business.Models
+{ 
     public class Produto : Entity
     {
         public string Nome { get; set; }
