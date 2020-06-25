@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Gabriel.App.Models;
+using Gabriel.App.ViewModels;
 
 namespace Gabriel.App.Controllers
 {

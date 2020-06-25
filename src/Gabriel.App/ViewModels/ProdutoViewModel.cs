@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gabriel.App.ViewModels
@@ -31,6 +32,12 @@ namespace Gabriel.App.ViewModels
         [Display(Name = "Ativo?")]
         public bool Ativo { get; set; }
 
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [Display(Name = "Fornecedor")]
+        public Guid FornecedorId { get; set; }
+
         public FornecedorViewModel Fornecedor { get; set; }
+
+        public IEnumerable<FornecedorViewModel> Fornecedores { get; set; }
     }
 }
