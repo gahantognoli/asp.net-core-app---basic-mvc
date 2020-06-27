@@ -13,5 +13,6 @@ namespace Gabriel.App.Data
             : base(options)
         {
         }
+        public DbSet<Gabriel.App.ViewModels.EnderecoViewModel> EnderecoViewModel { get; set; }
     }
 }

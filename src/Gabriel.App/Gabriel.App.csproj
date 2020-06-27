@@ -19,4 +19,9 @@
     <ProjectReference Include="..\Gabriel.Data\Gabriel.Data.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\imagens\" />
+  </ItemGroup>
+
 </Project>
