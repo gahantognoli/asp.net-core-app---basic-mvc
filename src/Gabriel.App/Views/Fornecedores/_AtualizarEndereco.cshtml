@@ -1,0 +1,31 @@
+﻿@model Gabriel.App.ViewModels.FornecedorViewModel
+
+@{
+    ViewData["Title"] = "Atualizar Endereço";
+}
+
+<div class="modal-header">
+    <h4 class="modal-title">@ViewData["Title"]</h4>
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+    </button>
+</div>
+
+<form asp-action="AtualizarEndereco">
+    <div class="modal-body">
+        <input type="hidden" asp-for="Endereco.FornecedorId" />
+        <input type="hidden" asp-for="Endereco.Id" />
+
+        <partial name="_Endereco" />
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12 d-flex justify-content-end">
+            <input type="submit" value="Atualizar Endereço" class="btn btn-success mr-1" />
+            <input type="button" class="btn btn-info" value="Fechar" data-dismiss="modal" />
+        </div>
+    </div>
+</form>
+
+<script>
+    BuscaCep();
+</script>
