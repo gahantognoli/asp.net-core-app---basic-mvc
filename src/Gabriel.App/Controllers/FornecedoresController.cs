@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Gabriel.App.Extensions;
 using Gabriel.App.ViewModels;
 using Gabriel.Business.Interfaces;
 using Gabriel.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gabriel.App.Controllers
 {
+    [Authorize]
     public class FornecedoresController : BaseController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
@@ -23,12 +26,14 @@ namespace Gabriel.App.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [Route("lista-fornecedores")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
+        [AllowAnonymous]
         [Route("dados-fornecedor/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -42,12 +47,14 @@ namespace Gabriel.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [ClaimsAuthorize("Fornecedor", "Adicionar")]
         [Route("novo-fornecedor")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [ClaimsAuthorize("Fornecedor", "Adicionar")]
         [Route("novo-fornecedor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,6 +71,7 @@ namespace Gabriel.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [ClaimsAuthorize("Fornecedor", "Editar")]
         [Route("editar-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -77,6 +85,7 @@ namespace Gabriel.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [ClaimsAuthorize("Fornecedor", "Editar")]
         [Route("editar-fornecedor/{id:guid}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,6 +105,7 @@ namespace Gabriel.App.Controllers
 
         }
 
+        [ClaimsAuthorize("Fornecedor", "Excluir")]
         [Route("remover-fornecedor/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -109,6 +119,7 @@ namespace Gabriel.App.Controllers
             return View(fornecedorViewModel);
         }
 
+        [ClaimsAuthorize("Fornecedor", "Excluir")]
         [Route("remover-fornecedor/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -129,6 +140,7 @@ namespace Gabriel.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ObterEndereco(Guid id)
         {
             var fornecedor = await ObterFornecedorEnderedo(id);
@@ -139,6 +151,7 @@ namespace Gabriel.App.Controllers
             return PartialView("_DetalhesEndereco", fornecedor);
         }
 
+        [ClaimsAuthorize("Fornecedor", "Editar")]
         public async Task<IActionResult> AtualizarEndereco(Guid id)
         {
             var fornecedor = await ObterFornecedorEnderedo(id);
@@ -149,6 +162,7 @@ namespace Gabriel.App.Controllers
             return PartialView("_AtualizarEndereco", new FornecedorViewModel { Endereco = fornecedor.Endereco });
         }
 
+        [ClaimsAuthorize("Fornecedor", "Editar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)
